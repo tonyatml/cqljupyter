@@ -4,11 +4,9 @@ import sys
 import re
 from ipykernel.kernelbase import Kernel
 
-from . import cqlsh
-from cqlshlib import cql3handling
-from .cqlsh import Shell
+from cqlshlib import cqlshmain, cql3handling
 
-__version__ = '1.1.0'
+__version__ = '2.0.0'
 
 version_pat = re.compile(r'version (\d+(\.\d+)+)')
 
