@@ -4,7 +4,7 @@ import sys
 import re
 from ipykernel.kernelbase import Kernel
 
-from cqlshlib import cqlshmain, cql3handling
+from cqlsh.cqlshlib import cqlshmain, cql3handling, authproviderhandling
 
 __version__ = '2.0.0'
 
@@ -20,6 +20,7 @@ class CQLKernel(Kernel):
                      'codemirror_mode': 'sql',
                      'mimetype': 'text/x-cassandra',
                      'file_extension': '.cql'}
+
     @property
     def language_version(self):
         m = version_pat.search(self.banner)
@@ -32,17 +33,20 @@ class CQLKernel(Kernel):
         self.user = os.environ.get('CASSANDRA_USER')
         self.pwd = os.environ.get('CASSANDRA_PWD')
         self.ssl = os.environ.get('CASSANDRA_SSL') == "True"
+        self.auth = authproviderhandling.load_auth_provider(
+            config_file='',
+            cred_file='',
+            username=self.user,
+            password=self.pwd)
         self._start_cql()
 
     def _start_cql(self):
-        self.cqlshell = Shell(self.hostname, self.port, username=self.user, password=self.pwd,  ssl=self.ssl)
+        self.cqlshell = cqlshmain.Shell(self.hostname, self.port, username=self.user, ssl=self.ssl,
+                                        auth_provider=self.auth)
         self.cqlshell.use_paging = False
         self.outStringWriter = io.StringIO()
         self.cqlshell.query_out = self.outStringWriter
         self.cqlshell.stdout = self.outStringWriter
-
-        cqlsh.setup_cqlruleset(cql3handling)
-        cqlsh.setup_cqldocs(cql3handling)
 
     def do_execute(self, code, silent, store_history=True,
                    user_expressions=None, allow_stdin=False):
