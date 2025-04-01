@@ -20,7 +20,7 @@ cd cqljupyter_project
 
 # Create and activate virtual environment
 python3 -m venv venv
-source venv/bin/activate  # On Unix/macOS
+source venv/bin/activate  # On Linux/macOS
 # or
 .\venv\Scripts\activate  # On Windows
 ```
