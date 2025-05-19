@@ -1,3 +1,24 @@
+Metadata-Version: 2.1
+Name: cqljupyter
+Version: 2.0.0
+Summary: CQL kernel for Jupyter based on Cassandra CQLSH
+Home-page: https://github.com/bschoening/cqljupyter
+Author: Brad Schoening
+License: Apache
+Keywords: cql,cassandra
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Downloads](https://pepy.tech/badge/cqljupyter)](https://pepy.tech/project/cqljupyter)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cqljupyter)
@@ -78,3 +99,5 @@ License
 =======
 
 This project is licensed under the terms of the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0).
+
+
