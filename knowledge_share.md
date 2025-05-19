@@ -170,10 +170,14 @@ Here's a sample notebook to get you started:
 -- Create a keyspace
 CREATE KEYSPACE IF NOT EXISTS test_keyspace
 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+```
 
+```sql
 -- Use the keyspace
 USE test_keyspace;
+```
 
+```sql
 -- Create a table
 CREATE TABLE IF NOT EXISTS country_gdp (
     year int,
@@ -181,7 +185,9 @@ CREATE TABLE IF NOT EXISTS country_gdp (
     gdp double,
     PRIMARY KEY (year, country_name)
 );
+```
 
+```sql
 -- Insert data
 BEGIN BATCH
     INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'United States', 25462700);
@@ -195,10 +201,14 @@ BEGIN BATCH
     INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'Canada', 2139840);
     INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'Brazil', 1920095);
 APPLY BATCH;
+```
 
+```sql
 -- Query data
 SELECT country_name, gdp FROM country_gdp WHERE year = 2023;
+```
 
+```
 -- use queried data for drawing
 %%python
 # Get the data from the last query
