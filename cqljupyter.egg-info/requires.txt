@@ -2,6 +2,6 @@ cqlsh
 ipython
 jupyter-client
 notebook
-cassandra-driver>=3.28
 matplotlib
 pandas
+cassandra-driver>=3.28
