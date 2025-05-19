@@ -33,13 +33,13 @@ With your virtual environment activated, install cqljupyter:
 pip install cqljupyter
 ```
 
-## Alternative: Dev Mode Installation
+## Alternative: Dev Mode Installation, currently supporting pandas based outputs.
 
 If you want to install cqljupyter from a specific GitHub repository branch for development purposes:
 
 ```bash
 # Clone the repository with the specific branch
-git clone -b SL-makeitwork https://github.com/hemidactylus/cqljupyter.git
+git clone https://github.com/tonyatml/cqljupyter.git
 
 # Change to the cloned repository directory
 cd cqljupyter
@@ -175,18 +175,68 @@ WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 USE test_keyspace;
 
 -- Create a table
-CREATE TABLE IF NOT EXISTS users (
-    user_id uuid PRIMARY KEY,
-    name text,
-    email text
+CREATE TABLE IF NOT EXISTS country_gdp (
+    year int,
+    country_name text,
+    gdp double,
+    PRIMARY KEY (year, country_name)
 );
 
 -- Insert data
-INSERT INTO users (user_id, name, email)
-VALUES (uuid(), 'John Doe', 'john@example.com');
+BEGIN BATCH
+    INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'United States', 25462700);
+    INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'China', 17963170);
+    INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'Japan', 4231141);
+    INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'Germany', 4072191);
+    INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'India', 3385090);
+    INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'United Kingdom', 3070667);
+    INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'France', 2782905);
+    INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'Italy', 2010430);
+    INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'Canada', 2139840);
+    INSERT INTO country_gdp (year, country_name, gdp) VALUES (2023, 'Brazil', 1920095);
+APPLY BATCH;
 
 -- Query data
-SELECT * FROM users;
+SELECT country_name, gdp FROM country_gdp WHERE year = 2023;
+
+-- use queried data for drawing
+%%python
+# Get the data from the last query
+df = _
+
+# Sort the data by GDP in descending order
+sorted_df = df.sort_values(by='gdp', ascending=False)
+
+# Display the sorted data
+print("Top 10 Countries by GDP (2023):")
+print(sorted_df.to_string())
+
+# Create a pie chart
+import matplotlib.pyplot as plt
+
+# Set the figure size
+plt.figure(figsize=(12, 8))
+
+# Create the pie chart
+plt.pie(sorted_df['gdp'], 
+        labels=sorted_df['country_name'],
+        autopct='%1.1f%%',
+        startangle=90)
+
+# Add a title
+plt.title('GDP Distribution of Top 10 Countries (2023)', pad=20)
+
+# Equal aspect ratio ensures that pie is drawn as a circle
+plt.axis('equal')
+
+# Add a legend
+plt.legend(sorted_df['country_name'], 
+          title="Countries",
+          loc="center left",
+          bbox_to_anchor=(1, 0, 0.5, 1))
+
+# Adjust layout to prevent label cutoff
+plt.tight_layout()
 ```
 
 ## Tips and Best Practices
