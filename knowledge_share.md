@@ -33,6 +33,26 @@ With your virtual environment activated, install cqljupyter:
 pip install cqljupyter
 ```
 
+## Alternative: Dev Mode Installation
+
+If you want to install cqljupyter from a specific GitHub repository branch for development purposes:
+
+```bash
+# Clone the repository with the specific branch
+git clone -b SL-makeitwork https://github.com/hemidactylus/cqljupyter.git
+
+# Change to the cloned repository directory
+cd cqljupyter
+
+# Install the package in editable mode
+pip install -e .
+
+# Verify the installation
+pip list | grep cqljupyter
+```
+
+This will install cqljupyter in development mode, allowing you to make changes to the code and have them immediately reflected without reinstalling.
+
 ## Step 3: Install Docker
 
 1. Visit [Docker Desktop](https://www.docker.com/products/docker-desktop)
